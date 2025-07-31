@@ -1,7 +1,11 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
+import os  # Импорт для работы с переменными окружения
 
-TOKEN = "8386635045:AAGFvD3elLsT3AIWAWPlCnuWsoKo2ZJ6TUA"
+# Получаем токен из переменных окружения
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+if not TOKEN:
+    raise ValueError("Токен бота не найден! Установите переменную TELEGRAM_BOT_TOKEN")
 
 user_state = {}
 
@@ -131,7 +135,6 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     elif data == "contact":
-        # Отправляем ссылку на Telegram профиль
         await query.edit_message_text(
             "📬 Click the link to contact us:\nhttps://t.me/PlatinumDigital202"
         )
